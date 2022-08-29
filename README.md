@@ -1,2 +1,2 @@
-# Tameenstore-website
+# Tameenistore-website
 Rebuild the Tameenstore website
