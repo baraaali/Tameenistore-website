@@ -9,4 +9,10 @@ class Car extends Model
 {
     use HasFactory;
     protected $fillable = ["name","brand","model","image","price","subscription_id"];
+
+    // The car has one CarFeature
+    public function car_feature()
+    {
+        return $this->hasOne(CarFeature::class);
+    }
 }

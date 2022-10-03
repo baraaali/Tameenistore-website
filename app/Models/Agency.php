@@ -16,5 +16,34 @@ class Agency extends Model
 	/**
 	 * @return mixed
 	 */
-	
+
+    //  The Agency belongs To User
+    public function user()
+    {
+        return $this->belongsTo(User::class ,'user_id' ,'id');
+    }
+
+    //  The Agency has One SocialMedia
+    public function social_media()
+    {
+        return $this->hasOne(SocialMedia::class ,'social_media_id' ,'id');
+    } 
+
+    //  The Agency has Many CarInformation
+    public function car_information()
+    {
+        return $this->hasMany(CarInformation::class ,'car_information_id' ,'id');
+    } 
+
+    //  The Agency has Many Insurance
+    public function insurance()
+    {
+        return $this->hasMany(Insurance::class);
+    } 
+
+    //  The Agency has one Subscription
+    public function subscriptions()
+    {
+        return $this->hasOne(Subscription::class ,'subscriptions_id' ,'id');
+    } 
 }

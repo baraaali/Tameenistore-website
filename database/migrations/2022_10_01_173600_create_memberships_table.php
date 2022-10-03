@@ -20,12 +20,16 @@ return new class extends Migration
             $table->enum('type_membership', ['free', 'paid']);
             $table->date('start_date');
             $table->date('end_date');
-            $table->user_id();
-            $table->integer('status');
+            $table->boolean('status')->default(false);
             $table->float('price');
-            $table->banner_id();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('banner_id');
             $table->string("subscription_id");
             $table->timestamps();
+
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("banner_id")->references("id")->on("banners")->onDelete("cascade");
+            $table->foreign("subscriptions_id")->references("id")->on("subscriptions")->onDelete("cascade");
         });
     }
 

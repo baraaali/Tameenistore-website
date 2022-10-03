@@ -10,4 +10,9 @@ class Plan extends Model
     use HasFactory;
     protected $fillable = ["name","price"];
 
+    // The plan belongs To subscription
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
+    }
 }
