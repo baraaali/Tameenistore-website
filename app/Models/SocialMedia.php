@@ -9,4 +9,10 @@ class SocialMedia extends Model
 {
     use HasFactory;
      protected $fillable =["email","instagram", "facebook" ,"website","twitter"];
+
+    //  SocialMedia belongs To Agency
+     public function agency()
+     {
+         return $this->belongsTo(Agency::class);
+     }
 }

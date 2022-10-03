@@ -9,4 +9,11 @@ class Banner extends Model
 {
     use HasFactory;
     protected $fillable = ["ar_name","en_name","type","price","ads_id"];
+
+
+   // Banner has one Membership
+   public function section()
+   {
+       return $this->hasMany(Section::class);
+   }
 }

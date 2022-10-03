@@ -41,4 +41,47 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // The User has One UserInformation
+    public function user_information()
+    {
+        return $this->hasOne(UserInformation::class);
+    }
+
+     // The User has Many Agency
+    public function agency()
+    {
+        return $this->hasMany(Agency::class);
+    }
+
+    // The User has Many Insurance
+    public function insurance()
+    {
+        return $this->hasMany(Insurance::class);
+    }
+
+     // The User has Many MaintenanceCenter
+    public function maintenance_centers()
+    {
+        return $this->hasMany(MaintenanceCenter::class);
+    }
+
+    // The User has Many Advertisement
+    public function advertisement()
+    {
+        return $this->hasMany(Advertisement::class);
+    }
+
+    
+    // The User has one Membership
+    public function membership()
+    {
+        return $this->hasOne(Membership::class);
+    }
+
+    // The User has many Membership
+    public function Notification()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }
