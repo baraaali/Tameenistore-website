@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->string("ar_name");
-            $table->string("en_name");
-            $table->string("image");
-            $table->enum("type",["main_section","subsection"]);
-            $table->unsignedInteger("banner_id");
+            $table->string('ar_name');
+            $table->string('en_name');
+            $table->string('image');
+            $table->enum('type',['main_section','subsection']);
+            $table->unsignedBigInteger('banner_id');
             $table->timestamps();
 
-            $table->foreign("banner_id")->references("id")->on("banners")->onDelete("cascade");
+            $table->foreign('banner_id')->references('id')->on('banners')->onDelete('cascade');
         });
     }
 

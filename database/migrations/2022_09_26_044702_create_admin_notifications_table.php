@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cars', function (Blueprint $table) {
+        Schema::create('admin_notifications', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("brand");
-            $table->string("model");
-            $table->string("image");
-            $table->float("price");
-            $table->string("subscriptions_id");
+            $table->string('type');
+            $table->string('title');
+            $table->text('message');
+            $table->date('date');
+            $table->integer('num_of_notification');
+            $table->float('price');
             $table->timestamps();
-
-            $table->foreign("subscriptions_id")->references("id")->on("subscriptions")->onDelete("cascade");
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cars');
+        Schema::dropIfExists('admin_notifications');
     }
 };

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('maintenance_centers', function (Blueprint $table) {
+        Schema::create('agencies', function (Blueprint $table) {
             $table->id();
             $table->string('ar_name');
             $table->string('en_name');
@@ -24,16 +24,19 @@ return new class extends Migration
             $table->time('times_of_work');
             $table->date('days_of_work');
             $table->boolean('status')->default(false);
-            $table->string('phone')->unique();
+            $table->string('agency_type');
+            $table->enum('car_type',['new','old']);
             $table->string('image');
-            $table->string('country');
-            $table->text('services');
+            $table->string('phone')->unique();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('car_information_id');
+            $table->unsignedBigInteger('social_media_id');
             $table->string('subscriptions_id');
             $table->timestamps();
 
-            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('car_information_id')->references('id')->on('car_information')->onDelete('cascade');
+            $table->foreign('social_media_id')->references('id')->on('social_media')->onDelete('cascade');
             $table->foreign('subscriptions_id')->references('id')->on('subscriptions')->onDelete('cascade');
         });
     }
@@ -45,6 +48,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('maintenance_centers');
+        Schema::dropIfExists('agencies');
     }
 };

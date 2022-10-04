@@ -1,4 +1,4 @@
-<?php
+b<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('social_media', function (Blueprint $table) {
             $table->id();
-            $table->string("ar_name");
-            $table->string("en_name");
-            $table->enum("type",["top","middle","bottom"]);
-            $table->float("price");
-            $table->unsignedInteger("ads_id");
+            $table->string('email')->unique();
+            $table->string('instagram')->unique()->nullable();
+            $table->string('facebook')->unique()->nullable();
+            $table->string('website')->unique()->nullable();
+            $table->string('twitter')->unique()->nullable();
             $table->timestamps();
-
-            $table->foreign("ads_id")->references("id")->on("advertisements")->onDelete("cascade");
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banners');
+        Schema::dropIfExists('social_media');
     }
 };
