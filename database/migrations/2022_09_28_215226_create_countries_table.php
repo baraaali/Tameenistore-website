@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string("ar_name");
-            $table->string("en_name");
-            $table->string("image");
-            $table->char("code",5);
-            $table->char("coin",3);
-            $table->string("region");
+            $table->string('ar_name');
+            $table->string('en_name');
+            $table->string('image');
+            $table->char('code',5);
+            $table->char('coin',3);
+            $table->string('region');
             $table->timestamps();
         });
     }

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('about_us', function (Blueprint $table) {
             $table->id();
-            $table->string("phone");
-            $table->string("email");
-            $table->string("whatsapp");
+            $table->string('phone');
+            $table->string('email');
+            $table->string('whatsapp');
             $table->timestamps();
         });
     }

@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admin_notifications', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->string("type");
-            $table->string("title");
-            $table->text("message");
-            $table->date("date");
-            $table->integer("num_of_notification");
-            $table->float("price");
+            $table->string('name');
+            $table->float('price');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_notifications');
+        Schema::dropIfExists('plans');
     }
 };

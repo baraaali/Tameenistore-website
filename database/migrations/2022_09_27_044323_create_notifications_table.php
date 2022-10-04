@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger("user_id");
-            $table->unsignedInteger("user_notify_id");
-            $table->unsignedInteger("admin_notify_id");
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_notify_id');
+            $table->unsignedBigInteger('admin_notify_id');
             $table->timestamps();
 
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
-            $table->foreign("user_notify_id")->references("id")->on("user_notifications")->onDelete("cascade");
-            $table->foreign("admin_notify_id")->references("id")->on("admin_notifications")->onDelete("cascade");
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_notify_id')->references('id')->on('user_notifications')->onDelete('cascade');
+            $table->foreign('admin_notify_id')->references('id')->on('admin_notifications')->onDelete('cascade');
         });
     }
 

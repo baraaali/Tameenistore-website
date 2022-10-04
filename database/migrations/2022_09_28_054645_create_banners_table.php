@@ -13,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_notifications', function (Blueprint $table) {
+        Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string("type");
-            $table->string("title");
-            $table->text("message");
-            $table->date("date");
+            $table->string('ar_name');
+            $table->string('en_name');
+            $table->enum('type',['top','middle','bottom']);
+            $table->float('price');
+            $table->unsignedBigInteger('ads_id');
             $table->timestamps();
+
+            $table->foreign('ads_id')->references('id')->on('advertisements')->onDelete('cascade');
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_notifications');
+        Schema::dropIfExists('banners');
     }
 };
