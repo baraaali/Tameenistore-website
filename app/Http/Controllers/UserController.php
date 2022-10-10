@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User; 
 class Usercontroller extends Controller
 {
     /**
@@ -13,7 +13,8 @@ class Usercontroller extends Controller
      */
     public function index()
     {
-        //
+        $user = User::latest()->paginate(10);
+        return veiw('user.index', compact('user'));
     }
 
     /**
@@ -23,7 +24,7 @@ class Usercontroller extends Controller
      */
     public function create()
     {
-        //
+        return veiw('user.create');
     }
 
     /**
@@ -34,7 +35,8 @@ class Usercontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create($request->all());
+        return redirect()->route('user.index');
     }
 
     /**
@@ -45,7 +47,7 @@ class Usercontroller extends Controller
      */
     public function show($id)
     {
-        //
+        return veiw('user.show', compact('user'));
     }
 
     /**
@@ -56,7 +58,7 @@ class Usercontroller extends Controller
      */
     public function edit($id)
     {
-        //
+        return veiw('user.edit', compact('user'));
     }
 
     /**
@@ -68,7 +70,8 @@ class Usercontroller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::update($request->all());
+        return redirect()->route('user.index');
     }
 
     /**
@@ -79,6 +82,7 @@ class Usercontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user ->delete();
+        return redirect()->route('user.index');
     }
 }
