@@ -1,85 +1,89 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\UserInformation;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\UserInformation;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class UserInformationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+    /** This function returns all user information in the admin panel*/
     public function index()
     {
-        //
+        $user_id = Auth::user()->id;
+        $users_information = UserInformation::all()->where('user_id',$user_id);
+
+        return view('admin.userInformation')->with('users_information',$users_information);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /** This function for user to create his account information */
     public function create()
     {
-        //
+        return view('user.accountInformation.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /** This function stores the data received from the user in the database */   
     public function store(Request $request)
     {
-        //
+        
+        $validation = $request->validate([
+            'phone' => ['required', 'string','unique'],
+            'account_type' => ['required', 'string','in:normal_user,agency,insurance_company,maintenance_center'],
+            'city' => ['required', 'string'],
+            'user_id' => ['required|exists:users,id'],
+            'country_id' => ['required|exists:countries,id'],
+        ]);
+        
+        UserInformation::create($validation);
+
+        return back()->with(Lang::get('messages.create_account'));
+    }
+    
+    /** This function for user to shows his account information */ 
+    public function show($id)
+    {
+        $user_id = Auth::user()->id;
+        $account_information = UserInformation::find($id)->where('id',$user_id);
+
+        return view('user.accountInformation.show')->with('account_information',$account_information);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\UserInformation  $userInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UserInformation $userInformation)
+    /** This function for user to edit his account information */ 
+    public function edit($id)
     {
-        //
+        $user_id = Auth::user()->id;
+        $account_information = UserInformation::find($id)->where('id',$user_id);
+
+        return view('user.accountInformation.edit')->with('account_information',$account_information);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\UserInformation  $userInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UserInformation $userInformation)
+     /** This function to update the data received from the user in the database */
+    public function update(Request $request, $id)
     {
-        //
+        $user_id = Auth::user()->id;
+        $account_information = UserInformation::find($id)->where('id',$user_id);
+        $input = $request->all();
+        $account_information->update($input);
+
+        return back()->with(Lang::get('messages.update_account'));  
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserInformation  $userInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserInformation $userInformation)
+    /** This function to delete the user account */
+    public function destroy($id)
     {
-        //
-    }
+        $user_id = Auth::user()->id;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\UserInformation  $userInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserInformation $userInformation)
-    {
-        //
+        if (UserInformation::id() == $user_id ) {
+            UserInformation::destroy($id) && User::destroy($id) ; ;
+        }
+        return back()->with(Lang::get('messages.delete_account')); 
     }
 }
