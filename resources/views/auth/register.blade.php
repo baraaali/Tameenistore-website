@@ -26,6 +26,27 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
+            <!-- Phone -->
+            <div class="mt-4">
+                <x-label for="phone" :value="__('Phone')" />
+
+                <x-input id="phone" class="block mt-1 w-full"
+                                type="text"
+                                name="phone"
+                                required autocomplete="new-password" />
+            </div>
+
+            <!-- Account type -->
+            <div class="mt-4">
+                <x-label for="account_type" :value="__('Account type')" />
+                <select name="account_type" id="account_type" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                <option value="1">Normal user</option>
+                <option value="1">Agency</option>
+                <option value="1">Insurance Company</option>
+                <option value="1">Maintenance Center</option>
+                </select>
+            </div>
+            
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />

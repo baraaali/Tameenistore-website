@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class RegisteredUserController extends Controller
 {
@@ -33,15 +35,34 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        // get user location 
+        $currentUserInfo =  Location::get('https://'.$request->ip());
+        $country_name = $currentUserInfo->countryName;
+        $country_code = $currentUserInfo->countryCode;
+        $city = $currentUserInfo->cityName;
+        $region = $currentUserInfo->regionName;
+        
+        Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['required', 'string','unique:users'],
+            'account_type' => ['required', 'string','in:normal_user,agency,insurance_company,maintenance_center'],
+            'country' => ['required', 'string'] ,
+            'country_code' => ['required', 'string'] ,
+            'city' => ['required', 'string'] ,
+            'region'=> ['required', 'string'] ,
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'account_type' => $request->account_type,
+            'country' => $country_name,
+            'country_code' => $country_code,
+            'city' => $city,
+            'region' => $region,
             'password' => Hash::make($request->password),
         ]);
 
