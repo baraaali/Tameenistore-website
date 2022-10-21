@@ -1,7 +1,8 @@
 <?php
-
+use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Models\UserInformation;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlanController;
 
     /** Admin Routs */
         
@@ -17,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 
     //user account
     Route::resource('/user-account',UserInformation::class);
+
+    Route::resource('/plan', PlanController::class);
