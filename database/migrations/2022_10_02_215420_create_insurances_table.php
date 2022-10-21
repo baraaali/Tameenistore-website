@@ -22,12 +22,10 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('status')->default(false);
-            $table->string('subscriptions_id');
             $table->unsignedBigInteger('carInformation_id');
             $table->unsignedBigInteger('agency_id');
             $table->timestamps();
 
-            $table->foreign('subscriptions_id')->references('id')->on('subscriptions')->onDelete('cascade');
             $table->foreign('carInformation_id')->references('id')->on('car_information')->onDelete('cascade');
             $table->foreign('agency_id')->references('id')->on('agencies')->onDelete('cascade');
             

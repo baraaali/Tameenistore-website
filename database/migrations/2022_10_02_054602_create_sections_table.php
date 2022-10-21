@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->string('ar_name');
-            $table->string('en_name');
+            $table->string('name');
             $table->string('image');
             $table->enum('type',['main_section','subsection']);
             $table->unsignedBigInteger('banner_id');
