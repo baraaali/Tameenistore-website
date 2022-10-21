@@ -20,10 +20,8 @@ return new class extends Migration
             $table->string('model');
             $table->string('image');
             $table->float('price');
-            $table->string('subscriptions_id');
             $table->timestamps();
             
-            $table->foreign('subscriptions_id')->references('id')->on('subscriptions')->onDelete('cascade');
         });
     }
 

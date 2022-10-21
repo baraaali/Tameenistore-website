@@ -15,12 +15,9 @@ return new class extends Migration
     {
         Schema::create('maintenance_centers', function (Blueprint $table) {
             $table->id();
-            $table->string('ar_name');
-            $table->string('en_name');
-            $table->longText('ar_description');
-            $table->longText('en_description');
-            $table->string('ar_address');
-            $table->string('en_address');
+            $table->string('name');
+            $table->longText('description');
+            $table->string('address');
             $table->time('times_of_work');
             $table->date('days_of_work');
             $table->boolean('status')->default(false);
@@ -29,12 +26,10 @@ return new class extends Migration
             $table->string('country');
             $table->text('services');
             $table->unsignedBigInteger('user_id');
-            $table->string('subscriptions_id');
             $table->timestamps();
 
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('subscriptions_id')->references('id')->on('subscriptions')->onDelete('cascade');
         });
     }
 

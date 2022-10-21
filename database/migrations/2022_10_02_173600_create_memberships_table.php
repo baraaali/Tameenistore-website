@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
-            $table->string('ar_name');
-            $table->string('en_name');
+            $table->string('name');
             $table->enum('type_membership', ['free', 'paid']);
             $table->date('start_date');
             $table->date('end_date');
@@ -24,12 +23,10 @@ return new class extends Migration
             $table->integer('status');
             $table->float('price');
             $table->unsignedBigInteger('banner_id');
-            $table->string('subscription_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('banner_id')->references('id')->on('banners')->onDelete('cascade');
-            $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade');
         });
     }
     /**

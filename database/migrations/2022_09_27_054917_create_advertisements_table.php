@@ -23,11 +23,10 @@ return new class extends Migration
             $table->string('image');
             $table->boolean('status')->default(false);
             $table->unsignedBigInteger('user_id');
-            $table->string('subscriptions_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('subscriptions_id')->references('id')->on('subscriptions')->onDelete('cascade');
+            
         });
     }
 

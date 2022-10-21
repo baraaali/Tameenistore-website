@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('ar_name');
-            $table->string('en_name');
+            $table->string('name');
             $table->enum('type',['top','middle','bottom']);
             $table->float('price');
             $table->unsignedBigInteger('ads_id');
