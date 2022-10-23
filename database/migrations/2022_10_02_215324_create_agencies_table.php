@@ -26,12 +26,12 @@ return new class extends Migration
             $table->string('image');
             $table->string('phone')->unique();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('car_information_id');
+            $table->unsignedBigInteger('car_id');
             $table->unsignedBigInteger('social_media_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('car_information_id')->references('id')->on('car_information')->onDelete('cascade');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             $table->foreign('social_media_id')->references('id')->on('social_media')->onDelete('cascade');
         });
     }

@@ -8,11 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     use HasFactory;
-    protected $fillable = ["name","brand","model","image","price"];
+    protected $fillable = ["name","brand","model","image","price","country_of_manufacture","fuel",
+                            "color","car_type","manufacturing_year","maximum_speed","mileage"];
 
-    // The car has one CarFeature
-    public function car_feature()
+    // The Car belongs To  Agency
+    public function agency()
     {
-        return $this->hasOne(CarFeature::class);
-    }
+        return $this->belongsTo(Agency::class);
+    } 
+
+     // The Car belongs To Many Insurance
+    public function insurance()
+    {
+        return $this->belongsTo(Insurance::class);
+    } 
 }

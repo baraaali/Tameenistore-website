@@ -20,6 +20,13 @@ return new class extends Migration
             $table->string('model');
             $table->string('image');
             $table->float('price');
+            $table->string('country_of_manufacture');
+            $table->string('fuel');
+            $table->string('color');
+            $table->enum('car_type',['new','used','both']);
+            $table->integer('manufacturing_year');
+            $table->float('maximum_speed');
+            $table->float('mileage');
             $table->timestamps();
             
         });

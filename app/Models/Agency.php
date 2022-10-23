@@ -11,7 +11,7 @@ class Agency extends Model
     protected $fillable = ["ar_name","en_name","ar_description","en_description",
                             "ar_address","en_address","times_of_work","days_of_work",
                             "status","agency_type","car_type","image","phone",
-                            "user_id","car_information_id","social_media_id"];
+                            "user_id","car_id","social_media_id"];
 
 	/**
 	 * @return mixed
@@ -29,10 +29,10 @@ class Agency extends Model
         return $this->hasOne(SocialMedia::class ,'social_media_id' ,'id');
     } 
 
-    //  The Agency has Many CarInformation
-    public function car_information()
+    //  The Agency has Many Cars
+    public function car()
     {
-        return $this->hasMany(CarInformation::class ,'car_information_id' ,'id');
+        return $this->hasMany(CarInformation::class ,'car_id' ,'id');
     } 
 
     //  The Agency has Many Insurance

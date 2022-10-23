@@ -9,7 +9,7 @@ class Insurance extends Model
 {
     use HasFactory;
     protected $fillable = ["company_name","license_number" , "license_photo", "ID_photos",
-                        "start_date" ,"end_date" , "status" ,"carInformation_id","agency_id"];
+                        "start_date" ,"end_date" , "status" ,"car_id","agency_id"];
 
     // The Insurance belongs To Many Agency
     public function agency()
@@ -17,10 +17,10 @@ class Insurance extends Model
         return $this->belongsToMany(Agency::class ,'agency_id','id');
     } 
 
-    // The Insurance has Many CarInformation
-    public function car_information()
+    // The Insurance has Many Cars
+    public function car()
     {
-        return $this->hasMany(CarInformation::class ,'carInformation_id' ,'id');
+        return $this->hasMany(CarInformation::class ,'car_id' ,'id');
     } 
 
 }
