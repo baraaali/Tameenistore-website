@@ -1,20 +1,35 @@
 <?php
-
+  
 namespace App\Models;
-
+  
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+  
 class Plan extends Model
 {
     use HasFactory;
-    /*protected $fillable = ["name","price"];
+  
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
 
-    // The plan belongs To subscription
-    public function subscription()
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'stripe_plan',
+        'price',
+        'description',
+    ];
+  
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function getRouteKeyName()
     {
-        return $this->belongsTo(Subscription::class);
+        return 'slug';
     }
-    */
-    
 }

@@ -1,85 +1,48 @@
 <?php
-
+  
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 
+  
 class PlanController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Write code on Method
      *
-     * @return \Illuminate\Http\Response
+     * @return response()
      */
     public function index()
     {
-        //
-    }
-
+        $plans = Plan::get();
+  
+        return view("plans", compact("plans"));
+    }  
+  
     /**
-     * Show the form for creating a new resource.
+     * Write code on Method
      *
-     * @return \Illuminate\Http\Response
+     * @return response()
      */
-    public function create()
+    public function show(Plan $plan, Request $request)
     {
-        //
+        $intent = auth()->user()->createSetupIntent();
+  
+        return view("subscription", compact("plan", "intent"));
     }
-
     /**
-     * Store a newly created resource in storage.
+     * Write code on Method
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return response()
      */
-    public function store(Request $request)
+    public function subscription(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Plan  $plan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Plan $plan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Plan  $plan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Plan $plan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Plan  $plan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Plan $plan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Plan  $plan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Plan $plan)
-    {
-        //
+        $plan = Plan::find($request->plan);
+  
+        $subscription = $request->user()->newSubscription($request->plan, $plan->stripe_plan)
+                        ->create($request->token);
+  
+        return view("subscription_success");
     }
 }
