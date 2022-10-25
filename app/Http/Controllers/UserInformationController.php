@@ -20,7 +20,7 @@ class UserInformationController extends Controller
     /** This function returns all user information in the admin panel*/
     public function index()
     {
-        $users_information = User::all();
+        $users_information = User::paginate(10);
 
         return view('admin.userInformation')->with('users_information',$users_information);
     }
@@ -45,23 +45,8 @@ class UserInformationController extends Controller
     { 
         $user = User::find(Auth::user()->id);
 
-        if ($user) {
-            if(Auth::user()->email === $request->email){
-                $this->validate($request,[
-                    'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255'],
-                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                    'phone' => ['required', 'string','unique:user_information'],
-                    ]);
-            }else{
-                $this->validate($request,[
-                    'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                    'phone' => ['required', 'string','unique:user_information'],
-                    ]);
-            }
-
+        if (!$user) return redirect()->back();
+      
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
@@ -69,18 +54,14 @@ class UserInformationController extends Controller
             $user->save();
 
             return redirect()->back()->with('status',"تم تحديث الحساب  بنجاح");
-        } else {
-            return redirect()->back();
-        }
+
     }
 
 
     /** This function to delete the user account */
     public function destroy($id)
     {
-        $user_id = Auth::user()->id;
-
-        if ($id == $user_id ) {
+        if ($id ==  Auth::user()->id ) {
             User::destroy($id);
         }
         return back()->with('status', "تم حذف الحساب بنجاح"); 
