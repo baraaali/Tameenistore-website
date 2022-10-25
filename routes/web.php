@@ -34,3 +34,6 @@ use App\Http\Controllers\PlanController;
         Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
         Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
     });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
