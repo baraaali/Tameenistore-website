@@ -2,11 +2,10 @@
 use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Models\UserInformation;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PlanController;
 use App\Http\Controllers\Subscriptions;
-use App\Http\Controllers\Subscriptions\SubscriptionController;
-use App\Http\Controllers\Subscriptions\PaymentController;
-use App\Plans;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\PaymentController;
+use App\Plan;
     /** Admin Routs */
         
     // get user information
@@ -28,3 +27,5 @@ use App\Plans;
         Route::get('/payments',[PaymentController::class,'index'])->name('payments');
         Route::post('/payments', [PaymentController::class,'store'])->name('payments.store');
     });
+
+    

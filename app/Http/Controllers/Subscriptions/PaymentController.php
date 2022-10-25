@@ -8,12 +8,11 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function index() {
-        
-        $user = Auth()->user();
+        $data = [
+            'intent' => auth()->user()->createSetupIntent()
+        ];
 
-        return view('update-payment-method', [
-            'intent' => $user->createSetupIntent()
-        ]);
+        return view('subscriptions.payment')->with($data);
         
     }
 
